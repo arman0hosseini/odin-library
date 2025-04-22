@@ -31,18 +31,19 @@ header h1 {
 }
 
 header button {
-  border: 0px;
+  border: 0;
   padding: 1rem;
   border-radius: 20px;
   margin-right: 3em;
   font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-size: 1rem;
+  background-color: rgb(123, 220, 123);
 }
 
 main {
   background-color: lightgray;
-  height: 650px;
+  height: 600px;
   width: 70%;
   padding: 1.5rem;
   margin: auto;
@@ -76,9 +77,17 @@ main .container .book-card button {
   background-color: rgb(182, 131, 131);
 }
 
+main .container .book-card .read-button {
+  padding: 0.5rem;
+  width: 100px;
+  border-radius: 10px;
+  border: 0;
+  background-color: rgb(123, 220, 123);
+}
+
 dialog {
   margin: 10rem auto;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 dialog .dialog-header {
@@ -88,8 +97,8 @@ dialog .dialog-header {
 }
 
 dialog .dialog-header .close-button {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border: 0;
   border-radius: 50%;
   background-color: rgb(255, 88, 88);
@@ -109,4 +118,18 @@ dialog form {
 dialog form .form-control {
   display: flex;
   gap: 0.5rem;
+}
+
+dialog form .form-control input[type="text"],
+dialog form .form-control input[type="number"] {
+  padding: 0.2rem;
+}
+
+dialog form .form-control button {
+  font-family: "Roboto", sans-serif;
+  width: 120px;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.5rem;
+  background-color: rgb(123, 220, 123);
 }

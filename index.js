@@ -1,7 +1,10 @@
 const myLibrary = [];
 const container = document.querySelector(".container");
 const removeButton = document.querySelector(".remove-button")
-
+const dialog = document.querySelector("dialog");
+const newBookBtn = document.querySelector(".new-book");
+const dialogCloseBtn = document.querySelector(".close-button");
+const addBook = document.querySelector(".add-book");
 
 function Book(name, author, pages, read) {
     this.id = crypto.randomUUID();
@@ -30,15 +33,17 @@ function addBookToContainer(myLibrary) {
                 bookCard.appendChild(element);
             })
 
-            const bookRead = document.createElement("p");
+            const bookRead = document.createElement("button");
             bookRead.textContent = book.read ? "Read" : "Not Read";
+            if (book.read) {
+                bookRead.classList.toggle("read-button");
+            }
             bookCard.appendChild(bookRead);
 
             const bookButton = document.createElement("button");
             bookButton.textContent = "Remove";
             bookButton.classList.add("remove-button")
             bookCard.appendChild(bookButton);
-
 
             container.appendChild(bookCard);
 
@@ -50,15 +55,29 @@ function addBookToContainer(myLibrary) {
                         bookCard.remove();
                     }
                 }
+
+            )
+
+            bookRead.addEventListener("click",
+                function () {
+                    if (book.read) {
+                        book.read = false;
+                        bookRead.textContent = "Not Read"
+                        bookRead.classList.toggle("read-button");
+                    }
+                    else {
+                        book.read = true;
+                        bookRead.textContent = "Read"
+                        bookRead.classList.toggle("read-button");
+                    }
+                }
             )
         }
     }
 }
 
 
-const dialog = document.querySelector("dialog");
-const newBookBtn = document.querySelector(".new-book");
-const dialogCloseBtn = document.querySelector(".close-button");
+
 
 newBookBtn.addEventListener("click",
     function () {
@@ -71,3 +90,21 @@ dialogCloseBtn.addEventListener("click",
         dialog.close();
     }
 )
+
+addBook.addEventListener("click",
+    function (event) {
+        event.preventDefault();
+        const bookName = (document.querySelector("#book-name")).value;
+        document.querySelector("#book-name").value = "";
+        const bookAuthor = (document.querySelector("#book-author")).value;
+        document.querySelector("#book-author").value = "";
+        const bookPages = (document.querySelector("#book-pages")).value;
+        document.querySelector("#book-pages").value = "";
+        const bookRead = (document.querySelector("#book-read")).checked;
+        (document.querySelector("#book-read")).checked = false;
+        addBookToLibrary(myLibrary, bookName, bookAuthor, bookPages, bookRead);
+        dialog.close();
+        addBookToContainer(myLibrary);
+    }
+)
+
