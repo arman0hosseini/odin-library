@@ -133,3 +133,8 @@ dialog form .form-control button {
   padding: 0.5rem;
   background-color: rgb(123, 220, 123);
 }
+
+dialog form .form-control input[type="text"]:invalid,
+dialog form .form-control input[type="number"]:invalid {
+  border: 2px solid red;
+}

@@ -91,20 +91,70 @@ dialogCloseBtn.addEventListener("click",
     }
 )
 
+function formChecker(nameIn, authorIn, pagesIn) {
+    let isValid = true;
+
+    if (nameIn.validity.valueMissing) {
+        nameIn.setCustomValidity("Enter a name");
+        isValid = false;
+    } else {
+        nameIn.setCustomValidity("");
+    }
+
+    if (authorIn.validity.valueMissing) {
+        authorIn.setCustomValidity("Enter a name for Author");
+        isValid = false;
+    } else {
+        authorIn.setCustomValidity("");
+    }
+
+    if (pagesIn.validity.valueMissing) {
+        pagesIn.setCustomValidity("NO PAGES?!");
+        isValid = false;
+    } else {
+        pagesIn.setCustomValidity("");
+    }
+
+    // Force re-check to update styles
+    nameIn.reportValidity();
+    authorIn.reportValidity();
+    pagesIn.reportValidity();
+
+    return isValid;
+}
+
+
 addBook.addEventListener("click",
     function (event) {
         event.preventDefault();
-        const bookName = (document.querySelector("#book-name")).value;
-        document.querySelector("#book-name").value = "";
-        const bookAuthor = (document.querySelector("#book-author")).value;
-        document.querySelector("#book-author").value = "";
-        const bookPages = (document.querySelector("#book-pages")).value;
-        document.querySelector("#book-pages").value = "";
-        const bookRead = (document.querySelector("#book-read")).checked;
-        (document.querySelector("#book-read")).checked = false;
-        addBookToLibrary(myLibrary, bookName, bookAuthor, bookPages, bookRead);
-        dialog.close();
-        addBookToContainer(myLibrary);
+
+        const nameInput = document.querySelector("#book-name");
+        const authorInput = document.querySelector("#book-author");
+        const pagesInput = document.querySelector("#book-pages");
+        const readCheckbox = document.querySelector("#book-read");
+
+        const formCheck = formChecker(nameInput, authorInput, pagesInput);
+
+        if (formCheck) {
+            const bookName = nameInput.value;
+            nameInput.value = "";
+
+            const bookAuthor = authorInput.value;
+            authorInput.value = "";
+
+            const bookPages = pagesInput.value;
+            pagesInput.value = "";
+
+            const bookRead = readCheckbox.checked;
+            readCheckbox.checked = false;
+
+            addBookToLibrary(myLibrary, bookName, bookAuthor, bookPages, bookRead);
+            dialog.close();
+            addBookToContainer(myLibrary);
+        }
+        else return;
+
     }
+
 )
 
